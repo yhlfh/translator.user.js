@@ -27,6 +27,7 @@ export default defineConfig(
       '@violentmonkey/ui',
       '@violentmonkey/dom',
       '@violentmonkey/shortcut',
+      'marked',
     ],
     output: {
       format: 'iife',
@@ -35,6 +36,7 @@ export default defineConfig(
         '@violentmonkey/dom': 'VM',
         '@violentmonkey/ui': 'VM',
         '@violentmonkey/shortcut': 'VM.shortcut',
+        marked: 'marked',
       },
       indent: false,
     },

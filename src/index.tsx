@@ -1,10 +1,12 @@
-import './meta.js?userscript-metadata';
 import { getHostElement, getPanel } from '@violentmonkey/ui';
-import { provider as youdaoProvider } from './youdao';
 import { provider as bingProvider } from './bing';
+import './gemini';
 import { provider as googleProvider } from './google';
+import './meta.js?userscript-metadata';
 import styles, { stylesheet } from './style.module.css';
 import { TranslatorProvider, TranslatorResponse } from './types';
+import { getPosition, getSelection } from './util';
+import { provider as youdaoProvider } from './youdao';
 
 let audio: HTMLAudioElement;
 let mouse: { clientX: number; clientY: number };
@@ -130,30 +132,8 @@ function render(results: Record<string, TranslatorResponse>) {
     );
   }
   const { wrapper } = panel;
-  Object.assign(wrapper.style, getPosition());
+  Object.assign(wrapper.style, getPosition(mouse.clientX, mouse.clientY));
   panel.show();
-}
-
-function getPosition() {
-  const { innerWidth, innerHeight } = window;
-  const { clientX, clientY } = mouse;
-  const style = {
-    top: 'auto',
-    left: 'auto',
-    right: 'auto',
-    bottom: 'auto',
-  };
-  if (clientY > innerHeight * 0.5) {
-    style.bottom = `${innerHeight - clientY + 10}px`;
-  } else {
-    style.top = `${clientY + 10}px`;
-  }
-  if (clientX > innerWidth * 0.5) {
-    style.right = `${innerWidth - clientX}px`;
-  } else {
-    style.left = `${clientX}px`;
-  }
-  return style;
 }
 
 const providers: TranslatorProvider[] = [
@@ -161,19 +141,6 @@ const providers: TranslatorProvider[] = [
   bingProvider,
   googleProvider,
 ];
-
-function getSelectionText() {
-  const { activeElement } = document;
-  let text: string;
-  if (['input', 'textarea'].includes(activeElement.tagName.toLowerCase())) {
-    const inputEl = activeElement as HTMLInputElement;
-    text = inputEl.value.slice(inputEl.selectionStart, inputEl.selectionEnd);
-  } else {
-    const sel = window.getSelection();
-    text = sel.toString();
-  }
-  return text.trim();
-}
 
 let session: Record<string, unknown>;
 function translate() {
@@ -209,9 +176,9 @@ function initialize() {
       clientX: event.clientX,
       clientY: event.clientY,
     };
-    query = getSelectionText();
+    query = getSelection()?.text;
     if (!query || (!/\w/.test(query) && query.length < 3)) return;
-    Object.assign(buttonEl.style, getPosition());
+    Object.assign(buttonEl.style, getPosition(mouse.clientX, mouse.clientY));
     button.show();
   }, 0);
   document.addEventListener(

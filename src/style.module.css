@@ -6,6 +6,11 @@
   overscroll-behavior: contain;
 }
 
+.panelGemini {
+  font-size: 14px;
+  line-height: 1;
+}
+
 .link {
   position: relative;
   color: #7cbef0;

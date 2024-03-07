@@ -11,9 +11,15 @@ dependencies:
   '@violentmonkey/dom':
     specifier: ^2.1.5
     version: 2.1.5
+  '@violentmonkey/shortcut':
+    specifier: ^1.4.1
+    version: 1.4.1
   '@violentmonkey/ui':
     specifier: ^0.7.8
     version: 0.7.8
+  marked:
+    specifier: ^12.0.1
+    version: 12.0.1
 
 devDependencies:
   '@babel/plugin-transform-react-jsx':
@@ -2337,6 +2343,12 @@ packages:
       solid-js: 1.8.15
     dev: false
 
+  /@violentmonkey/shortcut@1.4.1:
+    resolution: {integrity: sha512-ohMWVVT0fnTTR9u54bD7Ln1OWGaLrE858KSbIemU7Js33GiT5+VNsxv2y33zZNCyy0MztMupU5hqKY/oyyg/lA==}
+    dependencies:
+      '@babel/runtime': 7.24.0
+    dev: false
+
   /@violentmonkey/types@0.1.7:
     resolution: {integrity: sha512-1czfk2Kevw8KlUCbqnzNJBtIJiSG0y3s3hHT12D08OivyNGO2OioKsfJ7BedRFE4KkxRDudf33K2xxDhRtQp+g==}
     dev: true
@@ -4011,6 +4023,12 @@ packages:
     resolution: {integrity: sha512-hdN1wVrZbb29eBGiGjJbeP8JbKjq1urkHJ/LIP/NY48MZ1QVXUsQBV1G1zvYFHn1XE06cwjBsOI2K3Ulnj1YXQ==}
     engines: {node: '>=8'}
     dev: true
+
+  /marked@12.0.1:
+    resolution: {integrity: sha512-Y1/V2yafOcOdWQCX0XpAKXzDakPOpn6U0YLxTJs3cww6VxOzZV1BTOOYWLvH3gX38cq+iLwljHHTnMtlDfg01Q==}
+    engines: {node: '>= 18'}
+    hasBin: true
+    dev: false
 
   /mdn-data@2.0.14:
     resolution: {integrity: sha512-dn6wd0uw5GsdswPFfsgMp5NSB0/aDe6fK94YJV/AJDYXL6HVLWBsxeq7js7Ad+mU2K9LAlwpk6kN2D5mwCPVow==}
