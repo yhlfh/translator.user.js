@@ -114,6 +114,10 @@ function initialize() {
   );
 }
 
+function stopMouse(e: MouseEvent) {
+  e.stopPropagation();
+}
+
 async function handlePrompt(name: string) {
   const selection = getSelection();
   if (!selection?.text) return;
@@ -132,9 +136,20 @@ async function handlePrompt(name: string) {
     output: '',
   };
   panel.show();
-  panel.setContent(<div innerHTML={await def.loadingTpl(args)}></div>);
+  const header = <div className={styles.header}>translator</div>;
+  panel.setContent(
+    <div>
+      {header}
+      <div innerHTML={await def.loadingTpl(args)} onMouseDown={stopMouse}></div>
+    </div>,
+  );
   args.output = await askGemini(await def.promptTpl(args));
-  panel.setContent(<div innerHTML={await def.resultTpl(args)}></div>);
+  panel.setContent(
+    <div>
+      {header}
+      <div innerHTML={await def.resultTpl(args)} onMouseDown={stopMouse}></div>
+    </div>,
+  );
 }
 
 async function askGemini(
